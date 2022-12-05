@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, FormLabel, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Alerts from './Alerts';
 
-const Login = ({  showLogin, handleCloseLogin }) => {
+const Login = ({ showLogin, handleCloseLogin }) => {
 
     const [showSucces, setShowSucces] = useState(false);
     const handleCloseSucces = () => setShowSucces(false);
@@ -17,14 +17,14 @@ const Login = ({  showLogin, handleCloseLogin }) => {
     const submit = (data) => {
 
         axios
-            .post('https://ecommerce-api-react.herokuapp.com/api/v1/users/login', data)
+            .post('https://e-commerce-api.academlo.tech/api/v1/users/login', data)
             .then(res => {
                 localStorage.setItem('token', res.data.data.token)
                 navigate('/')
                 handleCloseLogin()
                 clear()
                 handleShowSucces()
-                
+
             })
             .catch(error => {
                 if (error.response.status === 404) {
@@ -52,6 +52,12 @@ const Login = ({  showLogin, handleCloseLogin }) => {
                 <Modal.Body>
                     <Form >
                         <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <h5> Data test to login in</h5>
+                            <i><b>email:</b> carlostest@gmail.com</i>
+                            <br />
+                            <i><b>password:</b> 12345678910</i>
+                            <br />
+                            <br />
                             <Form.Label>Email address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email"  {...register('email')} />
                             <Form.Text className="text-muted">
@@ -63,11 +69,6 @@ const Login = ({  showLogin, handleCloseLogin }) => {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" {...register('password')} />
                         </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" />
-                        </Form.Group>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
